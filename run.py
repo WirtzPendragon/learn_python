@@ -1,4 +1,6 @@
-x = 3
-while x < 10:
-    print(x)
-    x += 1 # Shorthand for x = x + 1
+def add(x, y):
+    print("x is {} and y is {}".format(x, y))
+    return x + y # Return values with a return statement
+
+result = add(3, 5)
+print("Result is:", result)
