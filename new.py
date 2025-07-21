@@ -191,3 +191,5 @@ li[:3]     # Return list from beginning until index 3 => [1, 2, 4]
 li[::2]    # Return list selecting elements with a strp size of 2 => [1, 4]
 # Use any combination of these to make advanced slices
 # li[start:end:step]
+
+# Make a one layer deep copy using slices
