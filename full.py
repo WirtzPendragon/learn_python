@@ -807,4 +807,59 @@ class Superhero(Human):
     # its arguments, but can also define additional arguments or definitions
     # and override its methods such as the class constructor.
     # adds the "superpower" and "movie" arguments:
+    def __init__(self, name, movie=False,
+                 superpowers=["super strength", "bulletproofing"]):
+        
+        # add additional class attributes:
+        self.fictional = True
+        self.movie = movie
+        # be aware of mutable default values, sice defaults are shared
+        self.superpowers = superpowers
+
+        #The "super" function lets you access the parent class's methods
+        # that are overidden by the child, in this case, the __init__ method.
+        # This calls the parent class constructor
+        super().__init__(name)
+
+    # override the sing method
+    def sing(self):
+        return "Dun, dun, DUN!"
     
+    # add an additional instance method
+    def boast(self):
+        for power in self.superpowers:
+            print("I wield the power of {pow}!".format(pow=power))
+
+if __name__ == "__main__":
+    sup = Superhero(name="Tick")
+
+    # Instance type checks
+    if isinstance(sup, Human):
+        print("I am human")
+    if type(sup) is Superhero:
+        print("I am a superhero")
+
+    # Get the "Method Resolution Order" used by both getattr() and super()
+    # (the order in which classes are searched for an attribute or method)
+    print(Superhero.__mro__)    # => (<class '__main__.Superhero>,
+                                # => <class 'human.Human'>, <class 'object'>)
+
+    # Calls parent method but uses its own class attribute
+    print(sup.get_species())    # => SuperHuman
+
+    # Calls overridden method
+    print(sup.sing())           # => Dun, dun, DUN!
+
+    # Calls method from Human
+    sup.say("Spoon")            # => Tick: Spoon
+
+    # Calls method taht exists only in Superhero
+    sup.boast()                 # => I wield the power of super strength!
+                                # => I wield the power of bulletproofing!
+
+    # Inherited class attribute
+    sup.age = 31
+    print(sup.age)              # => 31
+
+    # Attribute that only exists within Superhero
+    print("Am I Oscar eligible" + str(sup.movie))
